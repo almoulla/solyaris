@@ -1,8 +1,8 @@
-astropy>=7.0.0
+astropy>=8.0.1
 barycorrpy>=0.4.4
 iCCF>=0.4.15
-numpy>=2.2.4
-pandas>=2.2.3
-tqdm>=4.67.1
+numpy>=2.5.2
+pandas>=3.0.5
+tqdm>=4.70.0
 sphinx_rtd_theme
 nbsphinx
