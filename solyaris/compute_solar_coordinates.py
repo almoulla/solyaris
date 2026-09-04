@@ -18,7 +18,6 @@ def compute_solar_coordinates(obsname, date_obs, exp_time, photocen):
     airm_val = np.empty(Nobs, dtype=float)*np.nan
 
     # Loop observations
-    print('Computing solar coordinates ...')
     for i in tqdm(range(Nobs)):
 
         # Get date at start, end and photocenter of observation

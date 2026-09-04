@@ -16,7 +16,6 @@ def compute_berv_and_herv(obsname, date_obs, exp_time, photocen):
     herv_val = np.empty(Nobs, dtype=float)*np.nan
 
     # Loop observations
-    print('Computing BERV and HERV ...')
     for i in tqdm(range(Nobs)):
 
         # Compute gravitational redshift of the Sun
@@ -25,7 +24,7 @@ def compute_berv_and_herv(obsname, date_obs, exp_time, photocen):
         # Compute BERV and HERV
         jd_utc_cen  = Time(date_obs[i], format='isot').jd + exp_time[i]*photocen[i]/(60*60*24)
         berv_val[i] = barycorrpy.get_BC_vel(JDUTC=jd_utc_cen, obsname=obsname, SolSystemTarget='Sun'                 )[0][0]
-        herv_val[i] = barycorrpy.get_BC_vel(JDUTC=jd_utc_cen, obsname=obsname, SolSystemTarget='Sun', predictive=True)[0][0] + berv_val[i] - gr_sun
+        herv_val[i] = barycorrpy.get_BC_vel(JDUTC=jd_utc_cen, obsname=obsname, SolSystemTarget='Sun', predictive=True)[0][0]*(-1) - berv_val[i] + gr_sun
 
     # Convert from m/s to km/s
     berv_val *= 1e-3

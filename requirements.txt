@@ -3,6 +3,8 @@ barycorrpy>=0.4.4
 iCCF>=0.4.15
 numpy>=2.5.2
 pandas>=3.0.5
+PyAstronomy>=0.25.0
+scipy>=1.18.1
 tqdm>=4.70.0
 sphinx_rtd_theme
 nbsphinx
