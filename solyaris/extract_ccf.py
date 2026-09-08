@@ -94,10 +94,10 @@ def extract_ccf(file, instrument):
 
                 # Interpolate NaN pixels
                 idx_val = np.isfinite(flux[j]) & np.isfinite(error[j]) & np.isfinite(blaze[j])
-                idx_nan = np.isnan   (flux[j]) | np.isnan   (error[j]) | np.isnan   (blaze[j])
-                flux [j,idx_nan] = interp1d(ll[j,idx_val], flux [j,idx_val], kind='linear', assume_sorted=True, bounds_error=False)(ll[j][idx_nan])
-                error[j,idx_nan] = interp1d(ll[j,idx_val], error[j,idx_val], kind='linear', assume_sorted=True, bounds_error=False)(ll[j][idx_nan])
-                blaze[j,idx_nan] = interp1d(ll[j,idx_val], blaze[j,idx_val], kind='linear', assume_sorted=True, bounds_error=False)(ll[j][idx_nan])
+                idx_nan = ~idx_val
+                flux [j,idx_nan] = interp1d(ll[j,idx_val], flux [j,idx_val], kind='linear', assume_sorted=True, bounds_error=False)(ll[j,idx_nan])
+                error[j,idx_nan] = interp1d(ll[j,idx_val], error[j,idx_val], kind='linear', assume_sorted=True, bounds_error=False)(ll[j,idx_nan])
+                blaze[j,idx_nan] = interp1d(ll[j,idx_val], blaze[j,idx_val], kind='linear', assume_sorted=True, bounds_error=False)(ll[j,idx_nan])
 
                 # Compute CCF
                 ccf_val[j], ccf_err[j], _ = espdr_compute_CCF_fast(ll[j], dll[j], flux[j], error[j], blaze[j], quality[j], RV_table, mask, berv[j], bervmax, mask_width)

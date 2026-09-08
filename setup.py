@@ -5,7 +5,7 @@ with open('README.md') as file:
 
 setup(
     name='solyaris',
-    version='0.2.0',
+    version='0.3.0',
     author='Khaled Al Moulla',
     author_email='khaled.almoulla@gmail.com',
     description='Order-by-order radial-velocity extraction and differential-extinction correction of Sun-as-a-star observations.',
@@ -17,10 +17,13 @@ setup(
     python_requires='>=3.10',
     install_requires=['astropy>=8.0.1'     ,
                       'barycorrpy>=0.4.4'  ,
+                      'emcee==2.2.1'       ,
+                      'exotic_ld>=3.2.0'   ,
                       'iCCF>=0.4.15'       ,
                       'numpy>=2.5.2'       ,
                       'pandas>=3.0.5'      ,
                       'PyAstronomy>=0.25.0',
+                      'setuptools<=80.0.0' ,
                       'scipy>=1.18.1'      ,
                       'tqdm>=4.70.0'       ],
     classifiers=["Development Status :: 1 - Planning"    ,

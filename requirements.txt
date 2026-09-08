@@ -1,9 +1,12 @@
 astropy>=8.0.1
 barycorrpy>=0.4.4
+emcee==2.2.1
+exotic_ld>=3.2.0
 iCCF>=0.4.15
 numpy>=2.5.2
 pandas>=3.0.5
 PyAstronomy>=0.25.0
+setuptools<=80.0.0
 scipy>=1.18.1
 tqdm>=4.70.0
 sphinx_rtd_theme

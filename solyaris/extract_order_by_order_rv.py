@@ -1,36 +1,27 @@
 import iCCF
-import numpy    as     np
-from   tqdm     import tqdm
-import warnings
-warnings.filterwarnings('ignore')
+import numpy as np
 
 from .extract_ccf import extract_ccf
 
-def extract_order_by_order_rv(files, instrument, Norder):
-
-    # Nr. of files and orders
-    Nfile  = len(files)
-    Norder = Norder
+def extract_order_by_order_rv(file, instrument, Norder):
 
     # NaN arrays
-    vrad_val_ord = np.empty((Nfile, Norder+1), dtype=float)*np.nan
-    vrad_err_ord = np.empty((Nfile, Norder+1), dtype=float)*np.nan
+    vrad_val = np.empty(Norder+1, dtype=float)*np.nan
+    vrad_err = np.empty(Norder+1, dtype=float)*np.nan
 
-    # Loop files
-    for i in tqdm(range(Nfile)):
+    # Extract order-by-order CCF
+    vgrid, ccf_val, ccf_err = extract_ccf(file, instrument)
 
-        # Extract order-by-order CCF
-        vgrid, ccf_val, ccf_err = extract_ccf(files[i], instrument)
+    # Loop orders
+    for i in range(Norder+1):
 
-        # Loop orders
-        for j in range(Norder+1):
+        # Check that CCF is finite
+        if not np.all(np.isfinite(ccf_val[i]) & np.isfinite(ccf_err[i])):
+            continue
 
-            # Check that CCF is finite
-            if np.all(np.isfinite(ccf_val[j]) & np.isfinite(ccf_err[j])):
+        # Extract order-by-order RV
+        iccf = iCCF.Indicators(vgrid, ccf_val[i], ccf_err[i])
+        vrad_val[i] = iccf.RV
+        vrad_err[i] = iccf.RVerror
 
-                # Extract order-by-order RV
-                iccf = iCCF.Indicators(vgrid, ccf_val[j], ccf_err[j])
-                vrad_val_ord[i,j] = iccf.RV
-                vrad_err_ord[i,j] = iccf.RVerror
-
-    return vrad_val_ord, vrad_err_ord
+    return vrad_val, vrad_err
