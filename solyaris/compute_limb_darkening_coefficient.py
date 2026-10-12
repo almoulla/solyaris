@@ -1,5 +1,6 @@
-from   exotic_ld  import StellarLimbDarkening
-import numpy      as     np
+from __future__ import annotations
+import numpy as np
+from exotic_ld import StellarLimbDarkening
 import subprocess
 
 from typing import Literal
